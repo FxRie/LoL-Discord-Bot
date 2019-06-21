@@ -74,15 +74,15 @@ def EvaluateMatchFromMatchIdFromApi(matchId):
     result = api.get_match_by_matchID(account["lastMatchId"])
 
 def EvaluateAccountInformationForUsers(users):
-    apiRequestCounter = 0
     for user in users:
         for account in user["accounts"]:
             if (account["summonerId"] == None or account["accountId"] == None):
                 EvaluateAccountInformationForAccountFromApi(account)
-                apiRequestCounter = apiRequestCounter + 1
             EvaluateMatchListForAccountFromApi(account)
-            apiRequestCounter = apiRequestCounter + 1
-    print(str(apiRequestCounter) + " API Request(s) were performed.")
+
+def EvaluateMostRecentMatchForAccounts(users):
+    pass
+
 
 ReadInputParams(sys.argv[1:])
 #Global object in Testing.py with name "root"

@@ -2,7 +2,6 @@ from RiotAPI import RiotAPI
 import RiotConsts as Consts
 import time
 
-API_key = 'RGAPI-add63ad1-038a-4bac-96de-656b50806392'
 Summoner_ID = 'zx3MATXao0uMV-q7F-_LDB_0mu5vqb4zuecBl7pXS78GTyA'
 Account_ID = 'mRf_Hr2eE5CIe-AVfiGEkmyIiX5KwWFH2-OeilK0m9IqdA'
 Match_ID = '4062201614'
