@@ -2,6 +2,9 @@ import json
 from RiotAPI import RiotAPI
 import RiotConsts as Consts
 import sys, getopt
+import time
+
+#Private file for individual use
 import Private
 
 api = RiotAPI(Private.apiKey)
@@ -59,16 +62,30 @@ def EvaluateAccountInformationForAccountFromApi(account):
     account["summonerId"] = result["id"]
     account["accountId"] = result["accountId"]
     WriteUsersToJson("Testing2.json", root)
-    print("One API Request was performed.")
+
+#In Progress
+def EvaluateMatchListForAccountFromApi(account):
+    result = api.get_matches_by_accountID(account["accountId"])
+    if (account["lastMatchId"] == None) or (account["lastMatchId"] != result["matches"][0]["gameId"]):
+        account["lastMatchId"] = result["matches"][0]["gameId"]
+
+#In Progress
+def EvaluateMatchFromMatchIdFromApi(matchId):
+    result = api.get_match_by_matchID(account["lastMatchId"])
 
 def EvaluateAccountInformationForUsers(users):
+    apiRequestCounter = 0
     for user in users:
         for account in user["accounts"]:
             if (account["summonerId"] == None or account["accountId"] == None):
                 EvaluateAccountInformationForAccountFromApi(account)
+                apiRequestCounter = apiRequestCounter + 1
+            EvaluateMatchListForAccountFromApi(account)
+            apiRequestCounter = apiRequestCounter + 1
+    print(str(apiRequestCounter) + " API Request(s) were performed.")
 
 ReadInputParams(sys.argv[1:])
-#Globales Objekt in Testing.py mit dem namen root
+#Global object in Testing.py with name "root"
 root = ReadUsersFromJson(inputFile)
 EvaluateAccountInformationForUsers(root["users"])
 WriteUsersToJson(outputFile, root)
