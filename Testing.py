@@ -83,6 +83,7 @@ def EvaluateChampionFromLastMatch(participantToAccountId):
 def EvaluateMostRecentMatchResult(matchId, account):
     accountId = account["accountId"]
     result = api.get_match_by_matchID(matchId)
+    #WIP
     #Append regional timestamp of last match to json
     timeStampInUnixFormat = int(result["gameCreation"]) / 1000
     account["mostRecentMatchTimeStamp"] = (datetime.fromtimestamp(timeStampInUnixFormat)).strftime('%Y-%m-%d %H:%M:%S')
@@ -100,6 +101,7 @@ def EvaluateMostRecentMatchResult(matchId, account):
 def EvaluateMatchListForAccountFromApi(account):
     result = api.get_matches_by_accountID(account["accountId"])
     lastMatchId = result["matches"][0]["gameId"]
+    #WIP
     if (account["lastMatchId"] == None) or (account["lastMatchId"] != lastMatchId):
         account["lastMatchId"] = lastMatchId
         EvaluateMostRecentMatchResult(lastMatchId, account)
