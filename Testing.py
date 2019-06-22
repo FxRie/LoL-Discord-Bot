@@ -9,6 +9,8 @@ import Private
 
 api = RiotAPI(Private.apiKey)
 
+champions = None
+
 inputFile = ''
 outputFile = ''
 
@@ -49,11 +51,11 @@ def ReadInputParams(argv):
     print('Input file is "%s"', inputFile)
     print('Output file is "', outputFile)
 
-def WriteUsersToJson(fileName, root):
+def WriteJsonObjectToFile(fileName, root):
     with open(fileName, "w") as write_file:
         json.dump(root, write_file, indent=5)
 
-def ReadUsersFromJson(fileName):
+def ReadJsonObjectFromFile(fileName):
     with open(fileName, "r") as read_file:
         return(json.load(read_file))
 
@@ -61,13 +63,42 @@ def EvaluateAccountInformationForAccountFromApi(account):
     result = api.get_accountID_by_summonerID(account["summonerName"])
     account["summonerId"] = result["id"]
     account["accountId"] = result["accountId"]
-    WriteUsersToJson("Testing2.json", root)
+    WriteJsonObjectToFile(outputFile, root)
 
+def EvaluateKdaFromLastMatch(participantToAccountId):
+    K = participantToAccountId["stats"]["kills"]
+    D = participantToAccountId["stats"]["deaths"]
+    A = participantToAccountId["stats"]["assists"]
+    return(round((K + A)/max(D,1), 2))
+
+def EvaluateMatchResultFromLastMatch(participantToAccountId):
+    return(participantToAccountId["stats"]["win"])
+
+def EvaluateChampionFromLastMatch(participantToAccountId):
+    for champion in champions["champions"]:
+        #print(participantToAccountId["championId"])
+        if champion["championId"] == participantToAccountId["championId"]:
+            return(champion["championName"])
+
+def EvaluateMostRecentMatchResult(matchId, account):
+    accountId = account["accountId"]
+    result = api.get_match_by_matchID(matchId)
+    for participantIdentity in result["participantIdentities"]:
+        if participantIdentity["player"]["accountId"] == accountId:
+            participantId = participantIdentity["participantId"]
+            for participant in result["participants"]:
+                if participant["participantId"] == participantId:
+                    account["mostRecentKda"] = EvaluateKdaFromLastMatch(participant)
+                    account["mostRecentMatchWon"] = EvaluateMatchResultFromLastMatch(participant)
+                    account["mostRecentChampion"] = EvaluateChampionFromLastMatch(participant)
+                    WriteJsonObjectToFile(outputFile, root)
 #In Progress
 def EvaluateMatchListForAccountFromApi(account):
     result = api.get_matches_by_accountID(account["accountId"])
-    if (account["lastMatchId"] == None) or (account["lastMatchId"] != result["matches"][0]["gameId"]):
-        account["lastMatchId"] = result["matches"][0]["gameId"]
+    lastMatchId = result["matches"][0]["gameId"]
+    if (account["lastMatchId"] == None) or (account["lastMatchId"] != lastMatchId):
+        account["lastMatchId"] = lastMatchId
+        EvaluateMostRecentMatchResult(lastMatchId, account)
 
 #In Progress
 def EvaluateMatchFromMatchIdFromApi(matchId):
@@ -86,9 +117,10 @@ def EvaluateMostRecentMatchForAccounts(users):
 
 ReadInputParams(sys.argv[1:])
 #Global object in Testing.py with name "root"
-root = ReadUsersFromJson(inputFile)
+root = ReadJsonObjectFromFile(inputFile)
+champions = ReadJsonObjectFromFile("Champions.json")
 EvaluateAccountInformationForUsers(root["users"])
-WriteUsersToJson(outputFile, root)
+WriteJsonObjectToFile(outputFile, root)
 
 
 

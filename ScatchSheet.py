@@ -1,11 +1,15 @@
-import time
+import json
 
-start_time = time.time()
-time.sleep(1)
-elapsed_time = time.time() - start_time
+root = {}
+root1 = {"champions": []}
 
+with open("ChampionAttributes.json", "r", encoding='utf-8-sig') as read_file:
+    root = json.load(read_file)
 
-if (time.time() - start_time) >= 1:
-    print(str(time.time() - start_time))
-time.sleep(5)
-print(str(time.time() - start_time))
+for entry in root["data"]:
+    championName = root["data"][entry]["name"]
+    championId = root["data"][entry]["key"]
+    root1["champions"].append({"championId": int(championId), "championName": championName})
+
+with open("Champions.json", "w") as write_file:
+    json.dump(root1, write_file, indent=5)

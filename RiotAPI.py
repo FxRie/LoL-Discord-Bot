@@ -3,7 +3,7 @@ import RiotConsts as Consts
 import time
 #import Main
 
-class RiotAPI(object):
+class RiotAPI:
 
     global apiRequestsCounter1
     global apiRequestsCounter2

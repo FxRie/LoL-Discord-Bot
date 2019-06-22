@@ -8,13 +8,19 @@
                          "summonerName": "Headchoto",
                          "accountId": "_Dggu7n6jpZQFr_MnM_lgMQJ_pILV1pDoCTNYFDiqSyf5g",
                          "summonerId": "jaKV9bzo3boT2TUVADKCoNKZyB3oE12KkTdjHLho_aPQo9s",
-                         "lastMatchId": 4035122606
+                         "lastMatchId": 4035122606,
+                         "mostRecentKda": 0.5,
+                         "mostRecentMatchWon": false,
+                         "mostRecentChampion": "Darius"
                     },
                     {
                          "summonerName": "Dwarfpain",
                          "accountId": "RQjWAS-4GR-qfI3C5bvdM8gqivBwiK2JqwaYwCpli802Jg",
                          "summonerId": "YfpfAEnpri_VL3s-VNMSF1iJnxndVub086DS-ZHQl_KDhTY",
-                         "lastMatchId": 4002347326
+                         "lastMatchId": 4002347326,
+                         "mostRecentKda": 0.36,
+                         "mostRecentMatchWon": false,
+                         "mostRecentChampion": "Sylas"
                     }
                ]
           },
@@ -26,13 +32,28 @@
                          "summonerName": "WATISDISIDUNEVEN",
                          "accountId": "X5EMFjA56oSCIO5DPDTXDZNrY35E7dbs4o7HzOy51ZxFUw",
                          "summonerId": "_OZFyWl7VsqwPdkjLzPwLoT42WNLsk8KJOabK41PHle1GWI",
-                         "lastMatchId": 3514897256
+                         "lastMatchId": 3514897256,
+                         "mostRecentKda": 2.5,
+                         "mostRecentMatchWon": true,
+                         "mostRecentChampion": "Illaoi"
                     },
                     {
                          "summonerName": "bewail8",
                          "accountId": "uNMBkvWUbuclPqECR9AjqHgXSt5au1wNKdsCj6frIOHRPZE",
                          "summonerId": "3CkqWriHkJuOpXGefieiE428RD5GIJ-ZImv6Pk-WCEqTeTk",
-                         "lastMatchId": 3211282757
+                         "lastMatchId": 3211282757,
+                         "mostRecentKda": 3.5,
+                         "mostRecentMatchWon": true,
+                         "mostRecentChampion": "Riven"
+                    },
+                    {
+                         "summonerName": "ArthurqZe",
+                         "accountId": "QgmXWMShNCLcZO6K8wW_3lY8Ad_Ph5GWasg20qMf3rwsGPQ",
+                         "summonerId": "BVzuBQHWOvIYdt5cHDRqfK4kP4GIiFMqSLvXNosrkg4aMSo",
+                         "lastMatchId": 4068765972,
+                         "mostRecentKda": 3.25,
+                         "mostRecentMatchWon": true,
+                         "mostRecentChampion": "Ahri"
                     }
                ]
           },
@@ -44,7 +65,10 @@
                          "summonerName": "X1LEF",
                          "accountId": "glPJYuIppEvjF-DI2r3K38JzG5VGpyqFatB0i0PS4qwhSg",
                          "summonerId": "ZQ2Veb47tEou9_8e-bbr6glq1PvTNoXfFWK-zBnVNZxKmos",
-                         "lastMatchId": 4073250621
+                         "lastMatchId": 4073250621,
+                         "mostRecentKda": 4.25,
+                         "mostRecentMatchWon": true,
+                         "mostRecentChampion": "Vayne"
                     }
                ]
           },
@@ -56,7 +80,10 @@
                          "summonerName": "U WAN SUM FUK",
                          "accountId": "mRf_Hr2eE5CIe-AVfiGEkmyIiX5KwWFH2-OeilK0m9IqdA",
                          "summonerId": "zx3MATXao0uMV-q7F-_LDB_0mu5vqb4zuecBl7pXS78GTyA",
-                         "lastMatchId": 4070984687
+                         "lastMatchId": 4070984687,
+                         "mostRecentKda": 6.0,
+                         "mostRecentMatchWon": true,
+                         "mostRecentChampion": "Hecarim"
                     }
                ]
           }
