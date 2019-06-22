@@ -3,6 +3,7 @@ from RiotAPI import RiotAPI
 import RiotConsts as Consts
 import sys, getopt
 import time
+from datetime import datetime
 
 #Private file for individual use
 import Private
@@ -48,7 +49,7 @@ def ReadInputParams(argv):
     if not outputFile and inputFile:
         outputFile = inputFile
 
-    print('Input file is "%s"', inputFile)
+    print('Input file is "', inputFile)
     print('Output file is "', outputFile)
 
 def WriteJsonObjectToFile(fileName, root):
@@ -76,13 +77,15 @@ def EvaluateMatchResultFromLastMatch(participantToAccountId):
 
 def EvaluateChampionFromLastMatch(participantToAccountId):
     for champion in champions["champions"]:
-        #print(participantToAccountId["championId"])
         if champion["championId"] == participantToAccountId["championId"]:
             return(champion["championName"])
 
 def EvaluateMostRecentMatchResult(matchId, account):
     accountId = account["accountId"]
     result = api.get_match_by_matchID(matchId)
+    #Append regional timestamp of last match to json
+    timeStampInUnixFormat = int(result["gameCreation"]) / 1000
+    account["mostRecentMatchTimeStamp"] = (datetime.fromtimestamp(timeStampInUnixFormat)).strftime('%Y-%m-%d %H:%M:%S')
     for participantIdentity in result["participantIdentities"]:
         if participantIdentity["player"]["accountId"] == accountId:
             participantId = participantIdentity["participantId"]
@@ -92,6 +95,7 @@ def EvaluateMostRecentMatchResult(matchId, account):
                     account["mostRecentMatchWon"] = EvaluateMatchResultFromLastMatch(participant)
                     account["mostRecentChampion"] = EvaluateChampionFromLastMatch(participant)
                     WriteJsonObjectToFile(outputFile, root)
+
 #In Progress
 def EvaluateMatchListForAccountFromApi(account):
     result = api.get_matches_by_accountID(account["accountId"])
@@ -113,7 +117,6 @@ def EvaluateAccountInformationForUsers(users):
 
 def EvaluateMostRecentMatchForAccounts(users):
     pass
-
 
 ReadInputParams(sys.argv[1:])
 #Global object in Testing.py with name "root"
